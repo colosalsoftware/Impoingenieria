@@ -7,6 +7,8 @@
     <link rel="icon" href="media/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-o7xHQZzr6hZ6wKgqjx4H9p/RtB47F4p4QMNd6eR1IcM=" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg justify-content-center navbar-dark fixed-top" style="height: 80px;background-color: rgba(0, 0, 0, 0.8);">
@@ -100,10 +102,10 @@
                             SUMINISTRO E INSTALACIÓN DE PLANTAS ELÉCTRICAS UPS
                         </div>
                         <p>
-                            <br>- Plantas eléctricas domésticas e industriales a gasolina, diésel y gas.
-                            <br>- Sistema de escape, tubería de combustible, tanques externos de combustible, 
+                            <br>Plantas eléctricas domésticas e industriales a gasolina, diésel y gas.
+                            <br>Sistema de escape, tubería de combustible, tanques externos de combustible, 
                             cuartos insonoros y automatización.
-                            <br>- UPS monofásicas, trifásicas y bancos de batería externo.
+                            <br>UPS monofásicas, trifásicas y bancos de batería externo.
                         </p>
                     </div>
                     <div class="container">
@@ -127,7 +129,7 @@
                             EQUIPOS DE BOMBEO PARA INDUSTRIAS Y RESIDENCIAS
                         </div>
                         <p>
-                            <br>- Suministro y montaje llave en mano, incluyendo líneas hidráulicas, tableros certificados, material eléctrico y accesorios.
+                            <br>Suministro y montaje llave en mano, incluyendo líneas hidráulicas, tableros certificados, material eléctrico y accesorios.
                             <br>
                             <br>
                             <br>
@@ -154,8 +156,8 @@
                             MOTORES ELÉCTRICOS, VARIADORES Y ARRANCADORES
                         </div>
                         <p>
-                            <br>- Motores eléctricos de baja y mediana tensión, Monofásicos, trifásicos y construcción especial.
-                            <br>- Arrancadores suaves, estrella delta y variadores de todas las capacidades.
+                            <br>Motores eléctricos de baja y mediana tensión, Monofásicos, trifásicos y construcción especial.
+                            <br>Arrancadores suaves, estrella delta y variadores de todas las capacidades.
                             <br>
                             <br>
                         </p>
@@ -181,8 +183,8 @@
                             BOMBAS CONTRAINCENDIO
                         </div>
                         <p>
-                            <br>- Equipos Listados UL/FM, nacionales certificadas NFPA20, eléctricas y Diesel. 
-                            <br>- Montaje llave en mano, incluye accesorios, líneas de combustible, placa antivórtice y todos los elementos para cumplimiento de norma.
+                            <br>Equipos Listados UL/FM, nacionales certificadas NFPA20, eléctricas y Diesel. 
+                            <br>Montaje llave en mano, incluye accesorios, líneas de combustible, placa antivórtice y todos los elementos para cumplimiento de norma.
                             <br>
                             <br>
                         </p>
@@ -301,7 +303,7 @@
         <div class="row">
             <div class="col-sm-6" style="background-image: url(media/images/fondo_blanco_contacto.png) ; background-size: 100% 100%;background-position: center;background-repeat: no-repeat;">
                 <div style="width: 80%; margin: 24% 10% 24% 10%; padding: 20px; background-color: #E6E7E8; border-radius: 10px;">
-                <form action="https://formspree.io/your_email@example.com" method="POST">
+                <form id="contactForm" action="https://formspree.io/f/xoqojqbk" method="POST">
                     <label for="name">Nombre:</label>
                     <input type="text" id="name" name="name" required style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: none;">
 
@@ -316,7 +318,9 @@
 
                     <input type="submit" value="Enviar" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
                 </form>
+                <div id="successMessage" style="display: none; color: green;">Mensaje enviado con éxito</div>
                 </div>
+                
             </div>
             <div class="col-sm-6"  style="background-color: #201E1E; ">
                 <div class="content text-center" style="padding: 10%;color: white;" >
@@ -343,6 +347,35 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Esperar a que se cargue el documento
+        $(document).ready(function () {
+            // Manejar el evento de envío del formulario
+            $('#contactForm').submit(function (event) {
+                event.preventDefault(); // Evitar que se envíe el formulario de forma predeterminada
+
+                // Realizar la solicitud AJAX al servidor de Formspree
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (data) {
+                        // Mostrar el mensaje de éxito y ocultar el formulario
+                        $('#contactForm').hide();
+                        $('#successMessage').show();
+                    },
+                    error: function (err) {
+                        // Manejar el error en caso de que la solicitud falle
+                        console.error('Error al enviar el formulario:', err);
+                        // Puedes mostrar un mensaje de error aquí si lo deseas
+                    }
+                });
+            });
+        });
+    </script>
+
+    
 </body>
 </html>
